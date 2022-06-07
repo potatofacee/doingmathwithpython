@@ -37,8 +37,10 @@ def read_data(filename: str, column_headers: list) -> list:
 
     df.columns = d_names
     # TODO type datetime column as datetime
-
+    # TODO make a log file
+    log = 'haha'
     return df, log
+
 
 # TODO strip null columns from df
 # TODO make plotting function
@@ -80,8 +82,29 @@ if __name__ == '__main__':
 
     n_cols, d_names, d_units = parse_headers(data_shape)
     print(f'Number of columns found: {n_cols}')
-    temps = read_data(DATA, d_names)
+    temps, log = read_data(DATA, d_names)
     temps.info()
     temps.info()
 
+## TODO clean useless columns
+## todo, capture these values somewhere
+tstd = []
+for col in d_names:
+    try:
+        std = temps[col].std()
+        if std < 1e-10:
+            tstd.append(col)
+    except:
+        tstd.append(col)
+        pass
 
+temps.drop(tstd, axis=1, inplace=True)
+
+temps['lst_date'] = pd.to_datetime(temps['lst_date'], format='%Y%m%d')
+
+x = []
+for i in range(1,366):
+    x.append(i)
+
+t = temps['t_daily_avg'].tolist()
+plt.plot(x, t)
