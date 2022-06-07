@@ -100,6 +100,8 @@ for col in d_names:
 
 temps.drop(tstd, axis=1, inplace=True)
 
+
+# datetime format here: https://strftime.org/
 temps['lst_date'] = pd.to_datetime(temps['lst_date'], format='%Y%m%d')
 
 x = []
