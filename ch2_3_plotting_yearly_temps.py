@@ -86,7 +86,7 @@ if __name__ == '__main__':
     temps.info()
     temps.info()
 
-## TODO clean useless columns
+## todo clean useless columns
 ## todo, capture these values somewhere
 tstd = []
 for col in d_names:
